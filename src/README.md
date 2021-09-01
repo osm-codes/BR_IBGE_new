@@ -1,10 +1,9 @@
 ## Geohash adaptado à Grade Estatística IBGE
+{{pendente criar algoritmo de reconstrução a partir da grade de referência 1KM. Mostrar as partições 1KM para chegar nos pontos ref de ~3M depois o inveso, agregando até L0.
+  }}
+<img align="right" src="../../assets/NovaGradeEstatIBGE-Albers-IDs-cut1.png" style="padding:0.4em">
 
-<!-- pendente criar algoritmo de reconstrução a partir da grade de referência 1KM.
-  Mostrar as partições 1KM para chegar nos pontos ref de ~3M depois o inveso, agregando até L0. -->
-<img align="right" src="assets/NovaGradeEstatIBGE-Albers-IDs-cut1.png" style="padding:0.4em">
-
-STATUS: **EM CONSTRUÇÂO** - *ajuste fino com [BR_IBGE](http://git.OSM.codes/BR_IBGE)*.
+STATUS: *aguardando fechamento e homologação de [BR_IBGE](../BR_IBGE)*.
 
 SUMÁRIO:
 
@@ -40,7 +39,7 @@ Por fim, satisfeitos todos os 5 requisitos acima, propomos o teste de  mais um, 
 
 Geocódigos compactos, como o Geohash, podem ir mais além na conquista de aplicações para a grade: servir de **CEP**, um **novo código postal** que localiza efetivamente o endereço até a porta de casa.
 
-![](assets/ilustra-escalas01.jpg)
+![](../../assets/ilustra-escalas01.jpg)
 
 Por isso na solução proposta está sendo também prevista extensão de níveis hierárquicos até a ordem de metro ou dezena de metro.
 
@@ -50,7 +49,7 @@ A Grade Estatística IBGE é distribuída livremente em [grade_estatistica/censo
 
 Quando sobrepomos a articulação original à nossa proposta (numa primeira tentativa centramos no quadrante 45), percebemos que são muito parecidas.
 
-![](assets/BR_IBGE-newGridArticulacao.png)
+![](../../assets/BR_IBGE-newGridArticulacao.png)
 
  A "grade" do IBGE é na verdade um **conjunto hierarquizado de grades**. Cada quadrante da grade IBGE original é subdividio em quadrados com lado medindo 1/5 ou 1/2 do seu tamanho para formar a grade seguinte, de maior resolução.
 A grade seguinte à *L0*, a *L1*, tem quadrados com 500/5&nbsp;km&nbsp;=&nbsp;100&nbsp;km de lado; a seguinte *L2* com 100/2&nbsp;km&nbsp;=&nbsp;50&nbsp;km; *L3* com 50/5&nbsp;km&nbsp;=&nbsp;10&nbsp;km; *L4* com 10/2&nbsp;km&nbsp;=&nbsp;5&nbsp;km; *L6* com 5/5&nbsp;km&nbsp;=&nbsp;**1&nbsp;km**.
@@ -59,7 +58,7 @@ O ponto de partida na adaptação foi "**reutilizar a grade de 1 km**" (item 1 d
 
 A Nova Grade tem a liberdade de ser um pouco maior, mas idealmente sua grade mais grosseira (*L0*) estaria ainda "encaixada" na articulação dos quadrantes da grade *L0* do  IBGE. No sistema Geohash Generalizado as células da grade do  nível seguinte são particionadas em 4, de modo que a cada nível o tamanho de lado da célula é dividido por 2, conforme a ilustração abaixo.
 
-![](assets/BR_new-NiveisHierarquicos1.png)
+![](../../assets/BR_new-NiveisHierarquicos1.png)
 
 Como nosso ponto partida foi a grade de 1 km, devemos multiplicar por 2 sucessivamente até chegar num tamanho próximo de 500 km, e elegendo o mesmo como nível zero, *L0*, da Nova Grade.
 
@@ -67,22 +66,22 @@ Na tabela acima, da nossa proposta, os quadrantes *L0* "engordaram" dos 500 km d
 
 Apesar de pouco acréscimo na grade final, percebemos que, a cada célula, os 6 km maiores nas 4 direções poderiam ser suficientes para **ampliar a grade ao  norte**, a ponto de eliminar a necessidade dos quadrantes 92 e 93. **Decidimos então encaixar a grade *L0* pelo quadrante 25**, que cobre a cidade de São Paulo. O resultado foi o acréscimo de 7*6 km = 43 km ao norte, garantindo (com folga de 1km) essa eliminação:
 
-![](assets/BR_IBGE-BR_new.png)
+![](../../assets/BR_IBGE-BR_new.png)
 
 Um zoom na expansão ao norte mostra as porções dos quadrantes 92 e 93 que na nova grade foram incorporados aos quadrantes 82 e 83.
 
-![](assets/BR_IBGE-BR_New-encaixe.420px.png)
+![](../../assets/BR_IBGE-BR_New-encaixe.420px.png)
 
 
 O conceito de "grade completa" e "cobertura Brasil", bem como a distorção espacial acarretada pela Projeção Cônica,  podem ser melhor percebidos de longe, no contexto continental:
 
-![](assets/NovaGradeEstatIBGE-Albers-IDs.png)
+![](../../assets/NovaGradeEstatIBGE-Albers-IDs.png)
 
 Graças à projeção os quadradinhos traçados na grade possuem todos a mesma área, e portanto seus dados (ex. população por célula) podem ser comparados. Isso amplia enormemente o leque de aplicações da grade e dos geocódigos baseados nela. Em coordenadas da projeção Albers, XY, a posição do ponto inferior esquerdo da grade proposta é **(*x0_min*,*y0_min*)=(2734000,7320000)**.
 
 A grade mais importante para os dados do IBGE, a de 1 km, continua a mema. Se olharmos com _zoom_ para o extremo Sul, no  interior do quadrante 04 da Nova Grade, usando a estratégia de descartar células que não cobrem o território nacional, encontraremos em verde a grade não-descartada dos dados originais do Censo de 2010:
 
-![](assets/NovaGradeEstatIBGE-Zoom1km-id04.420px.png)
+![](../../assets/NovaGradeEstatIBGE-Zoom1km-id04.420px.png)
 
 ## Mais níveis e geocódigos hierárquicos
 
@@ -92,12 +91,12 @@ Um importante  objetivo da Nova Grade, listado acima como item 3, foi proporcion
 
 <!-- Por exemplo as células de 500 metros, ou se preferir as de 1km, podem ser univocamente identificas por Geohashes Generalizados de quatro dígitos da base32. Voltando ao exemplo do quadante 04 no extremo sul, nas procimidades do Chui, cada célula tem seu identificador e está contida em células maiores com mesmo prefixo:
 
-![](assets/BR_new-q04-zoom-Chui.png)
+![](../../assets/BR_new-q04-zoom-Chui.png)
 
 -->
 O algoritmo Geohash está fundamentado na partição uniforme e recorrente de células quadriláteras em 4 sub-células, indexando as células através da Curva de Morton. Abaixo ilustrando com base 16h, que apresenta geocódigos consistentes também para os níveis intermediários, como o L1:
 
-![](assets/BR_new-ZCurve.png)
+![](../../assets/BR_new-ZCurve.png)
 
 Seguindo com mais partições recorrentes, que resultam em quadados de lado 256&nbsp;km, 128&nbsp;km, 64&nbsp;km, ... chegamos ao 1&nbsp;km depois da 9ª&nbsp;partição. São portanto  9 níveis, ao invés dos 6 da grade original, e podemos seguir indefinidamente até por exemplo ~1 m, com a mesma regra.
 
@@ -116,7 +115,7 @@ Notação e suas aplicações|Níveis hierárquicos<br/>(bits no geocódigo)|Dí
 
 Uma das funções implementadas de *encode*/*decode* da proposta, é a que confere _"encurtamento pelo contexto"_ ao gecódigo proposto.
 
-![](assets/BR_new-encurtamento1.png)
+![](../../assets/BR_new-encurtamento1.png)
 
 Na ilustração as células com geocódigos `820`,&nbsp;`821`, `822`, `823`,&nbsp;`826` cobrem o polígono contextualizador chamado&nbsp;**XXX**, que pode ser imaginado como um nome popular e já conhecido por todos os habitantes das vizinhanças. Como o prefixo&nbsp;`82` é comum a todas as células da cobertura, os geocódigos podem ser reescritos conforme seu apelido, `XXX‑0`,&nbsp;`XXX‑1`, `XXX‑2`, `XXX‑3`,&nbsp;e&nbsp;`XXX‑6`. Dessa forma os habitantes da região, que já sabem decor o que significa XXX, podem lembrar dos geocódigos mais facilmente do que o número aleatório 82. Idem para o polígono da localidade popular&nbsp;**YYY**.
 
